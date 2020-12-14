@@ -23,7 +23,7 @@ window.sendRequest = (method,url,data,headers,onResponse) =>{
           console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
         } 
         if (onResponse && typeof onResponse === 'function'){
-            onResponce({
+            onResponse({
                 status:xhr.status,
                 statusText: xhr.statusText
             })

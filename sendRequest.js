@@ -19,6 +19,7 @@ window.sendRequest = (method,url,data,headers,onResponse) =>{
     xhr.send(json);
 
     xhr.onload = () => {
+		console.log(`Response: ${xhr.status}: ${xhr.statusText}`);
         if (xhr.status != 200) { // analyze HTTP status of the response
           console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
         } 

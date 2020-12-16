@@ -1,5 +1,4 @@
-//Send a request
-//Must send methid as a string, url as a string, data as an object, headers as an array of objects
+//Pass method as a string, url as a string, data as an object, headers as an array of objects, onResponse as a callback function
 window.sendRequest = (method,url,data,headers,onResponse) =>{
     let xhr = new XMLHttpRequest();
     
@@ -10,19 +9,16 @@ window.sendRequest = (method,url,data,headers,onResponse) =>{
     if (method == 'POST'){
         xhr.setRequestHeader('Content-type', 'application/json');
     }
-
-    for (h in headers){
-        header = headers[h];
-        xhr.setRequestHeader(header.key, header.value);
-    }
+    if (Array.isArray(headers)) {
+		for (h in headers){
+			header = headers[h];
+			xhr.setRequestHeader(header.key, header.value);
+		}
+	}
 
     xhr.send(json);
 
     xhr.onload = () => {
-		console.log(`Response: ${xhr.status}: ${xhr.statusText}`);
-        if (xhr.status != 200) { // analyze HTTP status of the response
-          console.log(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
-        } 
         if (onResponse && typeof onResponse === 'function'){
             onResponse({
                 status:xhr.status,
